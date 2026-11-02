@@ -12,9 +12,9 @@ const description =
 
 export const metadata: Metadata = {
   metadataBase: new URL(profile.siteUrl),
-  title: "Sahil Kumar | AI Engineer – LLMs, RAG & Agentic AI",
+  title: "Sahil Kumar | AI Engineer – RAG & LLM Systems",
   description,
-  keywords: ["AI Engineer", "LLM", "RAG", "LangGraph", "QLoRA", "DPO", "FastAPI", "MLOps", "Sahil Kumar"],
+  keywords: ["AI Engineer", "Forward Deployed Engineer", "LLM", "RAG", "Python", "FastAPI", "Data Science", "Sahil Kumar"],
   authors: [{ name: profile.name }],
   openGraph: {
     title: "Sahil Kumar | AI Engineer",
