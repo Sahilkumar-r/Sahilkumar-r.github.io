@@ -7,6 +7,7 @@ import { profile } from "@/data/profile";
 const links = [
   { href: "#about", label: "About" },
   { href: "#projects", label: "Projects" },
+  { href: "#github", label: "GitHub" },
   { href: "#experience", label: "Experience" },
   { href: "#skills", label: "Skills" },
   { href: "#learning", label: "Learning" },
@@ -27,7 +28,7 @@ export default function Navbar() {
         <a href="#top" className="font-display text-lg font-bold">
           {profile.name}<span className="text-accent">.</span>
         </a>
-        <ul className="hidden items-center gap-7 md:flex">
+        <ul className="hidden items-center gap-6 lg:flex">
           {links.map((l) => (
             <li key={l.href}>
               <a href={l.href} className="text-sm text-muted transition-colors hover:text-fg">{l.label}</a>
@@ -49,14 +50,14 @@ export default function Navbar() {
             aria-expanded={open}
             aria-controls="mobile-menu"
             onClick={() => setOpen(!open)}
-            className="grid h-10 w-10 place-items-center rounded-full border border-line md:hidden"
+            className="grid h-10 w-10 place-items-center rounded-full border border-line lg:hidden"
           >
             {open ? <X size={18} aria-hidden /> : <Menu size={18} aria-hidden />}
           </button>
         </div>
       </nav>
       {open && (
-        <ul id="mobile-menu" className="border-t border-line bg-bg px-5 py-3 md:hidden">
+        <ul id="mobile-menu" className="border-t border-line bg-bg px-5 py-3 lg:hidden">
           {links.map((l) => (
             <li key={l.href}>
               <a href={l.href} onClick={() => setOpen(false)} className="block py-3 text-base">{l.label}</a>

@@ -5,6 +5,9 @@ Next.js (static export) + TypeScript + Tailwind CSS.
 ## Update content
 Edit `src/data/profile.ts` (all text, links, projects, skills). Replace `public/Sahil_Kumar_Resume.pdf` and `public/images/portrait.webp` to change those assets.
 
+## Refresh the GitHub activity section
+The section reads a snapshot in `src/data/github.json` (no API calls at runtime). To update it, log in with the GitHub CLI and run `npm run fetch:github`, then commit and push.
+
 ## Develop
 ```
 npm install

@@ -34,7 +34,7 @@ export default function Contact() {
             <li><a className="inline-flex items-center gap-3 hover:text-accent" href={profile.github} target="_blank" rel="noopener noreferrer"><Github size={20} aria-hidden /> GitHub</a></li>
           </ul>
         </div>
-        <form onSubmit={onSubmit} className="rounded-2xl border border-line bg-surface p-6">
+        <form onSubmit={onSubmit} className="card-static p-6">
           <label className="block text-sm font-medium">Name
             <input name="name" required autoComplete="name" className={field} />
           </label>

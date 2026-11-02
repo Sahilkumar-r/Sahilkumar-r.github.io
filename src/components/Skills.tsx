@@ -8,7 +8,7 @@ function Tier({ title, note, groups, muted }: { title: string; note: string; gro
       <p className="mt-1 text-sm text-muted">{note}</p>
       <div className="mt-5 grid gap-5 md:grid-cols-2">
         {groups.map((g) => (
-          <div key={g.group} className="rounded-2xl border border-line bg-surface p-6">
+          <div key={g.group} className="card p-6">
             <h4 className="font-medium">{g.group}</h4>
             <ul className="mt-4 flex flex-wrap gap-2">
               {g.items.map((i) => (

@@ -7,7 +7,7 @@ export default function Education() {
   return (
     <Section id="education" eyebrow="Education" title="Education & achievements">
       <div className="grid gap-6 md:grid-cols-[1.6fr_1fr]">
-        <div className="rounded-2xl border border-line bg-surface p-6">
+        <div className="card p-6">
           <GraduationCap className="text-accent" aria-hidden />
           <h3 className="mt-3 font-display text-xl font-semibold">{ed.degree}</h3>
           <p className="text-muted">{ed.school} · {ed.dates}</p>
@@ -19,7 +19,7 @@ export default function Education() {
             ))}
           </ul>
         </div>
-        <div className="rounded-2xl border border-line bg-surface p-6">
+        <div className="card p-6">
           <Award className="text-accent" aria-hidden />
           <h3 className="mt-3 font-display text-xl font-semibold">Achievements</h3>
           <ul className="mt-3 space-y-2 text-muted">

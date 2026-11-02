@@ -3,25 +3,100 @@
 @tailwind utilities;
 
 :root {
-  --bg: 250 251 253;
+  --bg: 248 249 253;
   --surface: 255 255 255;
   --fg: 15 23 42;
-  --muted: 100 116 139;
-  --line: 226 232 240;
-  --accent: 37 99 235;
+  --muted: 88 100 122;
+  --line: 222 227 240;
+  --accent: 109 40 217;
+  --accent2: 8 145 178;
+  --on-accent: 255 255 255;
+  /* data-viz tokens (light) */
+  --series-1: #2a78d6;
+  --h0: #e6e9f4; --h1: #cde2fb; --h2: #86b6ef; --h3: #2a78d6; --h4: #104281;
 }
 .dark {
-  --bg: 8 11 18;
-  --surface: 15 20 31;
+  --bg: 6 7 15;
+  --surface: 14 16 32;
   --fg: 241 245 249;
-  --muted: 148 163 184;
-  --line: 30 41 59;
-  --accent: 96 165 250;
+  --muted: 150 160 184;
+  --line: 40 45 72;
+  --accent: 167 139 250;
+  --accent2: 34 211 238;
+  --on-accent: 8 8 20;
+  /* data-viz tokens (dark) */
+  --series-1: #3987e5;
+  --h0: #171b33; --h1: #0d366b; --h2: #1c5cab; --h3: #3987e5; --h4: #86b6ef;
 }
+
 html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
 body { @apply bg-bg text-fg font-sans antialiased; }
 :focus-visible { outline: 2px solid rgb(var(--accent)); outline-offset: 3px; border-radius: 6px; }
+::selection { background: rgb(var(--accent) / 0.35); }
+
+/* ---------- Components ---------- */
+.card {
+  @apply rounded-2xl border border-line bg-surface/80 backdrop-blur-sm;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.card:hover {
+  transform: translateY(-3px);
+  border-color: rgb(var(--accent) / 0.6);
+  box-shadow: 0 12px 40px -12px rgb(var(--accent) / 0.35);
+}
+.card-static { @apply rounded-2xl border border-line bg-surface/80 backdrop-blur-sm; }
+
+.btn {
+  @apply inline-flex items-center gap-2 rounded-full px-5 py-3 font-medium transition-all duration-200;
+}
+.btn-primary {
+  background-image: linear-gradient(110deg, rgb(var(--accent)), rgb(var(--accent2)));
+  color: rgb(var(--on-accent));
+  box-shadow: 0 8px 30px -8px rgb(var(--accent) / 0.6);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 36px -8px rgb(var(--accent) / 0.8); }
+.btn-ghost { @apply border border-line bg-surface/70 backdrop-blur-sm; }
+.btn-ghost:hover { border-color: rgb(var(--accent)); transform: translateY(-2px); }
+
+.gradient-text {
+  background-image: linear-gradient(100deg, rgb(var(--accent)), rgb(var(--accent2)) 55%, rgb(var(--accent)));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 6s linear infinite;
+}
+
+/* ---------- Background aurora ---------- */
+.aurora { position: fixed; inset: 0; z-index: -10; overflow: hidden; pointer-events: none; }
+.aurora::after {
+  content: ""; position: absolute; inset: 0;
+  background-image: radial-gradient(rgb(var(--fg) / 0.07) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse at 50% 30%, black 20%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 30%, black 20%, transparent 75%);
+}
+.blob { position: absolute; border-radius: 9999px; filter: blur(90px); opacity: 0.38; will-change: transform; }
+.dark .blob { opacity: 0.32; }
+.blob-1 { width: 42rem; height: 42rem; top: -12rem; left: -10rem; background: rgb(var(--accent)); animation: drift1 22s ease-in-out infinite alternate; }
+.blob-2 { width: 36rem; height: 36rem; top: 10%; right: -12rem; background: rgb(var(--accent2)); animation: drift2 26s ease-in-out infinite alternate; }
+.blob-3 { width: 30rem; height: 30rem; bottom: -10rem; left: 25%; background: rgb(236 72 153); opacity: 0.2; animation: drift3 30s ease-in-out infinite alternate; }
+
+/* ---------- Marquee ---------- */
+.marquee { display: flex; overflow: hidden; mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent); }
+.marquee-track { display: flex; flex-shrink: 0; gap: 0.75rem; padding-right: 0.75rem; animation: scroll 38s linear infinite; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+
+@keyframes shimmer { to { background-position: 200% center; } }
+@keyframes scroll { to { transform: translateX(-100%); } }
+@keyframes drift1 { to { transform: translate(8rem, 6rem) scale(1.15); } }
+@keyframes drift2 { to { transform: translate(-7rem, 9rem) scale(0.9); } }
+@keyframes drift3 { to { transform: translate(6rem, -6rem) scale(1.2); } }
+@keyframes pulse-dot { 0%, 100% { box-shadow: 0 0 0 0 rgb(var(--accent2) / 0.6); } 50% { box-shadow: 0 0 0 7px rgb(var(--accent2) / 0); } }
+.pulse-dot { animation: pulse-dot 2.2s ease-out infinite; }
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  * { animation: none !important; transition: none !important; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .card:hover, .btn-primary:hover, .btn-ghost:hover { transform: none; }
 }

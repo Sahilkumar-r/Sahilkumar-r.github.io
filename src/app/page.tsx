@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
+import GithubActivity from "@/components/GithubActivity";
 import Experience from "@/components/Experience";
 import Learning from "@/components/Learning";
 import Education from "@/components/Education";
@@ -20,6 +21,7 @@ export default function Home() {
         <Hero />
         <About />
         <Projects />
+        <GithubActivity />
         <Experience />
         <Skills />
         <Learning />

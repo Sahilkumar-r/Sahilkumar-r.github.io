@@ -12,7 +12,7 @@ export default function About() {
         </div>
         <dl className="grid grid-cols-3 gap-3 md:grid-cols-1">
           {profile.stats.map((s) => (
-            <div key={s.label} className="rounded-2xl border border-line bg-surface p-5">
+            <div key={s.label} className="card p-5">
               <dd className="font-display text-3xl font-bold text-accent">{s.value}</dd>
               <dt className="mt-1 text-sm text-muted">{s.label}</dt>
             </div>

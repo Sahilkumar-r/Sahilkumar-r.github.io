@@ -40,7 +40,7 @@ export default function Projects() {
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {list.map((p) => (
-          <article key={p.slug} className="flex flex-col rounded-2xl border border-line bg-surface p-6">
+          <article key={p.slug} className="card flex flex-col p-6">
             <div className="flex items-center justify-between gap-2">
               <span className="text-xs font-medium uppercase tracking-wide text-muted">{p.track}</span>
               <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${badge[p.status]}`}>{statusLabel[p.status]}</span>
@@ -79,7 +79,7 @@ export default function Projects() {
       <ul className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {profile.moreRepos.map((r) => (
           <li key={r.name}>
-            <a href={`${profile.github}/${r.name}`} target="_blank" rel="noopener noreferrer" className="block h-full rounded-xl border border-line bg-surface p-5 transition-colors hover:border-accent">
+            <a href={`${profile.github}/${r.name}`} target="_blank" rel="noopener noreferrer" className="block h-full card p-5">
               <span className="flex items-center gap-2 font-medium"><Github size={16} /> {r.name}</span>
               <span className="mt-2 block text-sm text-muted">{r.desc}</span>
             </a>

@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "npx serve out",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "fetch:github": "node scripts/fetch-github.mjs"
   },
   "dependencies": {
     "framer-motion": "^14.9.0",
