@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: 22
           cache: npm
-      - run: npm ci
+      - run: npm install --no-audit --no-fund
       # Repo named <user>.github.io serves from root, so no base path is needed.
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
