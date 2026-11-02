@@ -160,6 +160,21 @@ export const profile = {
       highlights: ["SFT and DPO", "Serving with vLLM"],
     },
     {
+      slug: "fastapi-docs-rag",
+      title: "FastAPI Docs Assistant: hybrid-search RAG with citations",
+      track: "RAG",
+      status: "built",
+      summary: "Answers questions about the FastAPI docs from retrieved passages, cites its sources, and refuses when the docs don't cover the question. Not deployed yet; run it locally from the repo.",
+      stack: ["Python", "FastAPI", "BM25", "bge-small embeddings", "Groq", "Docker"],
+      highlights: [
+        "Hybrid retrieval (BM25 + dense, rank fusion): hit@5 1.00, MRR 0.89 on 30 hand-written questions, vs 0.90 / 0.77 for BM25 alone",
+        "Measured, then dropped, an off-the-shelf reranker that lowered MRR on this set",
+        "Calibrated a relevance guardrail on 38 questions; plus prompt-injection checks and rate limiting",
+        "17 automated tests; evaluation is reproducible from the repo",
+      ],
+      repo: `${gh}/rag-demo`,
+    },
+    {
       slug: "advanced-rag",
       title: "Production-style RAG pipeline",
       track: "RAG",
