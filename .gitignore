@@ -6,3 +6,10 @@ next-env.d.ts
 .claude/
 Information/
 Specs/
+.impeccable/
+PRODUCT.md
+DESIGN.md
+Skills/
+.github/agents/
+.github/hooks/
+.github/skills/

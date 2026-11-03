@@ -2,101 +2,138 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Flat colours only. Dark backgrounds come from the approved list:
+   #000000 #181818 #1F1F1F #272727 #313131 #131209 */
 :root {
-  --bg: 248 249 253;
-  --surface: 255 255 255;
-  --fg: 15 23 42;
-  --muted: 88 100 122;
-  --line: 222 227 240;
-  --accent: 109 40 217;
-  --accent2: 8 145 178;
-  --on-accent: 255 255 255;
-  /* data-viz tokens (light) */
+  --bg: 255 255 255;
+  --band: 250 250 247;
+  --surface: 245 245 245;
+  --raised: 237 237 237;
+  --fg: 0 0 0;
+  --muted: 82 82 82;
+  --line: 229 229 229;
+  --line-strong: 208 208 208;
+  --accent: 47 95 255;
+  --link: 31 75 232;
+  /* data viz */
   --series-1: #2a78d6;
-  --h0: #e6e9f4; --h1: #cde2fb; --h2: #86b6ef; --h3: #2a78d6; --h4: #104281;
+  --h0: #e5e5e5; --h1: #4a8be0; --h2: #2a6fd0; --h3: #1c52a8; --h4: #0d366b;
 }
 .dark {
-  --bg: 6 7 15;
-  --surface: 14 16 32;
-  --fg: 241 245 249;
-  --muted: 150 160 184;
-  --line: 40 45 72;
-  --accent: 167 139 250;
-  --accent2: 34 211 238;
-  --on-accent: 8 8 20;
-  /* data-viz tokens (dark) */
+  --bg: 0 0 0; /* #000000 */
+  --band: 19 18 9; /* #131209 */
+  --surface: 24 24 24; /* #181818 */
+  --raised: 31 31 31; /* #1F1F1F */
+  --fg: 255 255 255;
+  --muted: 163 163 163;
+  --line: 39 39 39; /* #272727 */
+  --line-strong: 49 49 49; /* #313131 */
+  --accent: 47 95 255;
+  --link: 124 156 255;
   --series-1: #3987e5;
-  --h0: #171b33; --h1: #0d366b; --h2: #1c5cab; --h3: #3987e5; --h4: #86b6ef;
+  --h0: #272727; --h1: #2f6fcf; --h2: #4a8be0; --h3: #7aa9ec; --h4: #b3cef6;
 }
 
-html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
-body { @apply bg-bg text-fg font-sans antialiased; }
-:focus-visible { outline: 2px solid rgb(var(--accent)); outline-offset: 3px; border-radius: 6px; }
-::selection { background: rgb(var(--accent) / 0.35); }
+html { scroll-behavior: smooth; scroll-padding-top: 96px; background: rgb(var(--bg)); }
+body { @apply bg-bg font-sans text-fg antialiased; text-wrap: pretty; }
+h1, h2, h3, h4, h5, h6 { text-wrap: balance; }
+::selection { background: rgb(var(--accent) / 0.4); color: rgb(var(--fg)); }
+:focus-visible { outline: 2px solid rgb(var(--link)); outline-offset: 2px; }
+summary::-webkit-details-marker { display: none; }
+* { scrollbar-color: rgb(var(--line-strong)) rgb(var(--bg)); }
+input, textarea { caret-color: rgb(var(--link)); }
+
+/* ---------- Named text styles (Skills/SKILL.md B1). Sizes snap to the Tailwind scale; the
+   largest headings step down one or two scale steps on small screens so 390px never overflows. ---------- */
+@layer components {
+  .heading-1 { @apply text-4xl font-semibold md:text-6xl; }
+  .heading-2 { @apply text-3xl font-semibold md:text-5xl; }
+  .heading-3 { @apply text-2xl font-semibold md:text-4xl; }
+  .heading-4 { @apply text-2xl font-semibold md:text-3xl; }
+  .heading-5 { @apply text-2xl font-semibold; }
+  .heading-6 { @apply text-xl font-semibold; }
+  .title-1 { @apply text-xl font-medium; }
+  .title-2 { @apply text-lg font-medium; }
+  .title-3 { @apply text-base font-medium; }
+  .title-4 { @apply text-sm font-medium; }
+  .title-5 { @apply text-xs font-medium; }
+  .body-1 { @apply text-base font-semibold; }
+  .body-2 { @apply text-base font-medium; }
+  .body-3 { @apply text-base font-normal; }
+  .body-4 { @apply text-sm font-semibold; }
+  .body-5 { @apply text-sm font-medium; }
+  .body-6 { @apply text-sm font-normal; }
+  .button-lg { @apply text-lg font-semibold; }
+  .button-md { @apply text-base font-semibold; }
+  .button-sm { @apply text-sm font-semibold; }
+  .button-xsm { @apply text-xs font-semibold; }
+  .caption-1 { @apply text-sm font-medium; }
+  .caption-2 { @apply text-sm font-normal; }
+  .caption-3 { @apply text-xs font-semibold; }
+  .caption-4 { @apply text-xs font-medium; }
+  .caption-5 { @apply text-xs font-normal; }
+}
 
 /* ---------- Components ---------- */
-.card {
-  @apply rounded-2xl border border-line bg-surface/80 backdrop-blur-sm;
-  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-}
-.card:hover {
-  transform: translateY(-3px);
-  border-color: rgb(var(--accent) / 0.6);
-  box-shadow: 0 12px 40px -12px rgb(var(--accent) / 0.35);
-}
-.card-static { @apply rounded-2xl border border-line bg-surface/80 backdrop-blur-sm; }
+@layer components {
+  /* B7: base curve, 300ms for colour and opacity on hover, never under 200ms. */
+  .motion-base { @apply transition duration-300 ease-base; }
 
-.btn {
-  @apply inline-flex items-center gap-2 rounded-full px-5 py-3 font-medium transition-all duration-200;
-}
-.btn-primary {
-  background-image: linear-gradient(110deg, rgb(var(--accent)), rgb(var(--accent2)));
-  color: rgb(var(--on-accent));
-  box-shadow: 0 8px 30px -8px rgb(var(--accent) / 0.6);
-}
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 36px -8px rgb(var(--accent) / 0.8); }
-.btn-ghost { @apply border border-line bg-surface/70 backdrop-blur-sm; }
-.btn-ghost:hover { border-color: rgb(var(--accent)); transform: translateY(-2px); }
+  .btn {
+    @apply motion-base button-md inline-flex items-center justify-center gap-2 rounded-lg px-3 py-2;
+  }
+  .btn:active { transform: scale(0.98); }
+  .btn-primary { @apply bg-accent text-white; }
+  .btn-primary:hover { @apply opacity-90; }
+  .btn-ghost { @apply border border-line-strong bg-transparent text-fg; }
+  .btn-ghost:hover { @apply bg-surface; }
+  .icon-btn { @apply motion-base inline-flex h-10 w-10 items-center justify-center rounded-lg border border-line-strong text-fg; }
+  .icon-btn:hover { @apply bg-surface; }
+  .icon-btn:active { transform: scale(0.98); }
 
-.gradient-text {
-  background-image: linear-gradient(100deg, rgb(var(--accent)), rgb(var(--accent2)) 55%, rgb(var(--accent)));
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: shimmer 6s linear infinite;
+  .surface { @apply rounded-2xl border border-line bg-surface; }
+  .surface-hover { @apply motion-base; }
+  .surface-hover:hover { @apply border-line-strong bg-raised; }
+
+  .link { @apply motion-base text-link underline decoration-line-strong underline-offset-4; }
+  .link:hover { text-decoration-color: rgb(var(--link)); }
+
+  /* Hero heading gradient: the single permitted gradient, on text only (B5). */
+  .hero-gradient {
+    background-image: linear-gradient(90deg, #000000, #666666);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .dark .hero-gradient { background-image: linear-gradient(90deg, #ffffff, #9b9b9b); }
+
+  /* Citation marker: a superscript bracket that links a claim to its source. Raised with
+     position (not vertical-align) so it never changes the line height. Padding with an equal
+     negative margin gives a 24px tap target without moving the text. */
+  .cite-wrap { @apply relative inline-block; }
+  .cite { @apply motion-base caption-3 relative -top-1 -m-1 inline-block min-w-6 p-1 text-center text-link no-underline; }
+  .cite:hover { @apply text-fg; }
+  .cite-tip {
+    @apply pointer-events-none absolute bottom-full left-1/2 z-20 mb-2 w-max max-w-xs rounded-lg border border-line-strong bg-bg px-3 py-2 text-left font-normal;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1), display 0.3s allow-discrete;
+  }
+  .cite-wrap:hover .cite-tip,
+  .cite-wrap:focus-within .cite-tip {
+    display: block;
+    opacity: 1;
+  }
+  @starting-style {
+    .cite-wrap:hover .cite-tip,
+    .cite-wrap:focus-within .cite-tip { opacity: 0; }
+  }
 }
-
-/* ---------- Background aurora ---------- */
-.aurora { position: fixed; inset: 0; z-index: -10; overflow: hidden; pointer-events: none; }
-.aurora::after {
-  content: ""; position: absolute; inset: 0;
-  background-image: radial-gradient(rgb(var(--fg) / 0.07) 1px, transparent 1px);
-  background-size: 28px 28px;
-  mask-image: radial-gradient(ellipse at 50% 30%, black 20%, transparent 75%);
-  -webkit-mask-image: radial-gradient(ellipse at 50% 30%, black 20%, transparent 75%);
-}
-.blob { position: absolute; border-radius: 9999px; filter: blur(90px); opacity: 0.38; will-change: transform; }
-.dark .blob { opacity: 0.32; }
-.blob-1 { width: 42rem; height: 42rem; top: -12rem; left: -10rem; background: rgb(var(--accent)); animation: drift1 22s ease-in-out infinite alternate; }
-.blob-2 { width: 36rem; height: 36rem; top: 10%; right: -12rem; background: rgb(var(--accent2)); animation: drift2 26s ease-in-out infinite alternate; }
-.blob-3 { width: 30rem; height: 30rem; bottom: -10rem; left: 25%; background: rgb(236 72 153); opacity: 0.2; animation: drift3 30s ease-in-out infinite alternate; }
-
-/* ---------- Marquee ---------- */
-.marquee { display: flex; overflow: hidden; mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent); }
-.marquee-track { display: flex; flex-shrink: 0; gap: 0.75rem; padding-right: 0.75rem; animation: scroll 38s linear infinite; }
-.marquee:hover .marquee-track { animation-play-state: paused; }
-
-@keyframes shimmer { to { background-position: 200% center; } }
-@keyframes scroll { to { transform: translateX(-100%); } }
-@keyframes drift1 { to { transform: translate(8rem, 6rem) scale(1.15); } }
-@keyframes drift2 { to { transform: translate(-7rem, 9rem) scale(0.9); } }
-@keyframes drift3 { to { transform: translate(6rem, -6rem) scale(1.2); } }
-@keyframes pulse-dot { 0%, 100% { box-shadow: 0 0 0 0 rgb(var(--accent2) / 0.6); } 50% { box-shadow: 0 0 0 7px rgb(var(--accent2) / 0); } }
-.pulse-dot { animation: pulse-dot 2.2s ease-out infinite; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  *, *::before, *::after { animation: none !important; transition: none !important; }
-  .card:hover, .btn-primary:hover, .btn-ghost:hover { transform: none; }
+  /* Reveals become a plain fade: cancel the inline rise from framer-motion's initial state. */
+  [data-motion] { transform: none !important; }
+  *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; }
+  .btn:active, .icon-btn:active { transform: none; }
 }

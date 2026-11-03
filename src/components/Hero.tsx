@@ -1,76 +1,66 @@
 "use client";
-import { motion, useReducedMotion } from "framer-motion";
-import { ArrowDown, Download, Mail } from "lucide-react";
-import { Github, Linkedin } from "./BrandIcons";
+import { motion } from "framer-motion";
+import { useReducedMotion } from "@/lib/useReducedMotion";
+import { DownloadSimple, EnvelopeSimple, GithubLogo, LinkedinLogo } from "@phosphor-icons/react";
+import Rich from "./Cite";
 import { profile } from "@/data/profile";
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
-const marquee = ["Python", "PyTorch", "RAG", "LangChain", "LangGraph", "LlamaIndex", "FastAPI", "Docker", "SQL", "Qdrant", "Hugging Face", "Streamlit", "Git"];
+const ease = [0.22, 1, 0.36, 1] as const;
 
 export default function Hero() {
   const reduce = useReducedMotion();
-  const item = (i: number) =>
-    reduce
-      ? {}
-      : { initial: { opacity: 0, y: 22 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.6, delay: 0.1 * i, ease: "easeOut" as const } };
+  const item = (i: number) => ({
+    "data-motion": true,
+    initial: { opacity: 0, y: reduce ? 0 : 32 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: reduce ? 0.3 : 0.7, delay: reduce ? 0 : 0.08 * i, ease },
+  });
 
   return (
-    <section id="top" className="mx-auto w-full max-w-6xl px-5 pb-12 pt-14 sm:px-8 sm:pt-20">
-      <div className="grid items-center gap-12 md:grid-cols-[1.4fr_1fr]">
-        <div>
-          <motion.p {...item(0)} className="btn-ghost inline-flex items-center gap-2 rounded-full px-3 py-1 text-sm text-muted">
-            <span className="pulse-dot h-2 w-2 rounded-full bg-accent2" aria-hidden /> {profile.availability}
-          </motion.p>
-          <motion.h1 {...item(1)} className="mt-5 font-display text-4xl font-bold leading-tight tracking-tight sm:text-6xl">
-            Hi, I&apos;m {profile.name}.
-            <span className="gradient-text block">{profile.headline}</span>
-          </motion.h1>
-          <motion.p {...item(2)} className="mt-6 max-w-xl text-lg leading-relaxed text-muted">{profile.tagline}</motion.p>
-          <motion.ul {...item(3)} className="mt-6 flex flex-wrap gap-2" aria-label="Top skills">
-            {profile.heroSkills.map((s) => (
-              <li key={s} className="btn-ghost rounded-full px-3 py-1 text-sm">{s}</li>
+    <section id="top" className="mx-auto max-w-6xl px-4 pb-16 pt-24 md:px-6 md:pb-24">
+      <div className="grid items-center gap-10 md:grid-cols-5 md:gap-16">
+        <div className="md:col-span-3">
+          <motion.h1 {...item(0)} className="heading-1 max-w-[680px]">
+            {profile.heroLines.map((line) => (
+              <span key={line} className="hero-gradient block w-fit">{line}</span>
             ))}
-          </motion.ul>
-          <motion.div {...item(4)} className="mt-8 flex flex-wrap gap-3">
-            <a href="#projects" className="btn btn-primary"><ArrowDown size={18} aria-hidden /> View Projects</a>
-            <a href={`${base}/${profile.resume}`} download className="btn btn-ghost"><Download size={18} aria-hidden /> Download Resume</a>
-            <a href="#contact" className="btn btn-ghost"><Mail size={18} aria-hidden /> Contact Me</a>
-          </motion.div>
-          <motion.div {...item(5)} className="mt-6 flex gap-3">
-            <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile" className="btn-ghost grid h-11 w-11 place-items-center rounded-full text-muted transition-colors hover:text-accent">
-              <Linkedin size={20} />
+          </motion.h1>
+          <motion.p {...item(1)} className="title-1 mt-6 max-w-[680px] text-muted">
+            {profile.subheading}
+          </motion.p>
+          <motion.p {...item(2)} className="body-3 mt-4 max-w-[680px]">
+            <Rich text={profile.proof} />
+          </motion.p>
+          <motion.div {...item(3)} className="mt-8 flex flex-wrap items-center gap-4">
+            <a href={`mailto:${profile.email}`} className="btn btn-primary">
+              <EnvelopeSimple size={20} weight="bold" aria-hidden /> Email me
             </a>
-            <a href={profile.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub profile" className="btn-ghost grid h-11 w-11 place-items-center rounded-full text-muted transition-colors hover:text-accent">
-              <Github size={20} />
+            <a href={`${base}/${profile.resume}`} download className="link button-sm inline-flex items-center gap-2">
+              <DownloadSimple size={16} aria-hidden /> Download resume
             </a>
+            <span className="flex items-center gap-2">
+              <a href={profile.github} target="_blank" rel="noopener noreferrer" className="icon-btn" aria-label="GitHub profile">
+                <GithubLogo size={20} aria-hidden />
+              </a>
+              <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="icon-btn" aria-label="LinkedIn profile">
+                <LinkedinLogo size={20} aria-hidden />
+              </a>
+            </span>
           </motion.div>
         </div>
 
-        <motion.div
-          {...(reduce ? {} : { initial: { opacity: 0, scale: 0.94, rotate: 2 }, animate: { opacity: 1, scale: 1, rotate: 0 }, transition: { duration: 0.8, delay: 0.2, ease: "easeOut" as const } })}
-          className="relative mx-auto w-full max-w-xs md:max-w-none"
-        >
-          <div className="absolute -inset-1 rounded-[1.75rem] bg-gradient-to-br from-accent via-accent2 to-pink-500 opacity-60 blur-xl" aria-hidden />
+        <motion.div {...item(2)} className="md:col-span-2">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={`${base}/${profile.portrait}`}
-            alt="Portrait of Sahil Kumar"
+            alt="Sahil Kumar, smiling, wearing glasses and a white shirt with arms crossed"
             width={900}
             height={1200}
             fetchPriority="high"
-            className="relative aspect-[3/4] w-full rounded-3xl border border-line object-cover shadow-2xl"
+            className="aspect-[3/4] w-full rounded-2xl border border-line object-cover"
           />
         </motion.div>
-      </div>
-
-      <div className="marquee mt-14" aria-hidden>
-        {[0, 1].map((k) => (
-          <div key={k} className="marquee-track">
-            {marquee.map((m) => (
-              <span key={m} className="btn-ghost whitespace-nowrap rounded-full px-4 py-1.5 text-sm text-muted">{m}</span>
-            ))}
-          </div>
-        ))}
       </div>
     </section>
   );

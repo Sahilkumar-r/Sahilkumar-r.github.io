@@ -1,58 +1,68 @@
-import type { Metadata } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { profile } from "@/data/profile";
 import "./globals.css";
 
-const sans = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
-const display = Space_Grotesk({ subsets: ["latin"], variable: "--font-display", display: "swap" });
+// One typeface for the whole site (Skills/SKILL.md B1). Geist Mono is used only for data such as source URLs.
+const sans = Geist({ subsets: ["latin"], variable: "--font-geist", display: "swap" });
+const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", display: "swap" });
 
 const description =
-  "Sahil Kumar is a recent Data Science graduate and AI Engineer focused on RAG and LLM systems, open to Forward Deployed Engineer and AI Engineer roles.";
+  "Sahil Kumar is a recent Data Science graduate and AI Engineer who builds RAG systems that cite their sources. Open to AI Engineer and Forward Deployed Engineer roles.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(profile.siteUrl),
-  title: "Sahil Kumar | AI Engineer – RAG & LLM Systems",
+  title: "Sahil Kumar | AI Engineer, RAG and LLM systems",
   description,
-  keywords: ["AI Engineer", "Forward Deployed Engineer", "LLM", "RAG", "Python", "FastAPI", "Data Science", "Sahil Kumar"],
+  keywords: ["AI Engineer", "Forward Deployed Engineer", "RAG", "LLM", "Python", "FastAPI", "Sahil Kumar"],
   authors: [{ name: profile.name }],
+  alternates: { canonical: "/" },
   openGraph: {
     title: "Sahil Kumar | AI Engineer",
     description,
     url: profile.siteUrl,
     siteName: "Sahil Kumar",
     type: "website",
-    images: [{ url: "/images/portrait.webp" }],
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Sahil Kumar, AI Engineer" }],
   },
-  twitter: { card: "summary", title: "Sahil Kumar | AI Engineer", description },
+  twitter: { card: "summary_large_image", title: "Sahil Kumar | AI Engineer", description, images: ["/og.png"] },
   icons: { icon: "/favicon.svg" },
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: profile.name,
-  jobTitle: profile.title,
-  url: profile.siteUrl,
-  email: `mailto:${profile.email}`,
-  sameAs: [profile.linkedin, profile.github],
-  alumniOf: "FAST National University of Computer and Emerging Sciences",
-};
+export const viewport: Viewport = { themeColor: "#000000", colorScheme: "dark light" };
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: profile.name,
+    jobTitle: profile.title,
+    url: profile.siteUrl,
+    email: `mailto:${profile.email}`,
+    sameAs: [profile.linkedin, profile.github],
+    alumniOf: "FAST National University of Computer and Emerging Sciences",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: profile.faq.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a.replace(/\{\d+\}/g, "") },
+    })),
+  },
+];
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${sans.variable} ${display.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${sans.variable} ${mono.variable}`}>
       <body>
         <noscript>
-          <style>{`[style*="opacity: 0"]{opacity:1!important;transform:none!important}`}</style>
+          <style>{`[style*="opacity: 0"]{opacity:1!important;transform:none!important}.tagline-word{opacity:1!important}`}</style>
         </noscript>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-          <div className="aurora" aria-hidden>
-            <div className="blob blob-1" />
-            <div className="blob blob-2" />
-            <div className="blob blob-3" />
-          </div>
           {children}
         </ThemeProvider>
       </body>
