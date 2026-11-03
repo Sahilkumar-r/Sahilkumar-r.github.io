@@ -108,6 +108,13 @@ input, textarea { caret-color: rgb(var(--link)); }
   .dark .hero-gradient { background-image: linear-gradient(90deg, #ffffff, #9b9b9b); }
 }
 
+/* Live status dot on the GitHub section: a slow opacity pulse (opacity only, base curve). */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+.pulse-dot { animation: pulse-dot 2s cubic-bezier(0.22, 1, 0.36, 1) infinite; }
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   /* Reveals become a plain fade: cancel the inline rise from framer-motion's initial state. */

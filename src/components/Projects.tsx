@@ -51,7 +51,7 @@ function ProjectCard({ p }: { p: Project }) {
         <StatusBadge s={p.status} />
         <span className="caption-4 text-muted">{p.track}</span>
       </div>
-      <h4 className="title-1 mt-3">{p.title}</h4>
+      <h3 className="title-1 mt-3">{p.title}</h3>
 
       <dl className="mt-4 space-y-4">
         <div>
