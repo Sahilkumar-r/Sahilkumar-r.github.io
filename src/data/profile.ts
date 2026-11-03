@@ -158,6 +158,7 @@ export const profile = {
         "Found a correct documentation page in the top five results for all 30 test questions (hit@5 1.00, mean reciprocal rank 0.89), against 0.90 and 0.77 for keyword search alone.",
         "Measured an off the shelf reranker, saw it lower results (0.82), and left it out.",
         "Refused all 8 off topic test questions and wrongly refused none of the 30 real ones. The cutoff was tuned on the same 38 questions, so it may not carry over to other documents.",
+        "Retrieval on CPU takes about 9 ms at the median (13 ms at the 95th percentile) for hybrid search. The reranker takes about 1.9 s (3.7 s at the 95th percentile), which is another reason it stays off.",
       ],
       stack: ["Python", "FastAPI", "BM25", "Dense embeddings", "Groq", "Docker"],
       repo: `${gh}/rag-demo`,
@@ -242,7 +243,11 @@ export const profile = {
       problem: "Using library models without knowing the maths behind them makes tuning and debugging guesswork.",
       built:
         "Fifteen NumPy implementations: linear regression (ordinary least squares, gradient descent, ridge and lasso variants), polynomial regression, logistic regression, KNN, SVM, Gaussian naive Bayes, decision tree, random forest and PCA.",
-      results: ["All algorithms are implemented with vectorized NumPy. I have not yet benchmarked them against scikit-learn."],
+      results: [
+        "Benchmarked against scikit-learn over 5 random 80/20 splits. Accuracy is within about 1 point on most runs: logistic regression 97.5% vs 98.1% and KNN 97.4% vs 97.4% on breast cancer, Gaussian naive Bayes 97.8% vs 97.8% on wine.",
+        "Multiple linear regression matches scikit-learn exactly on diabetes (R² 0.418, RMSE 55.9) and PCA matches its explained variance to 7e-17.",
+        "Trees trail on the small wine set: decision tree 91.7% vs 93.9%, random forest 95.0% vs 97.2%. They are also far slower, 8.6 s against 0.014 s for a 10 tree forest on breast cancer.",
+      ],
       stack: ["Python", "NumPy"],
       repo: `${gh}/Machine-Learning-From-Scratch`,
     },
