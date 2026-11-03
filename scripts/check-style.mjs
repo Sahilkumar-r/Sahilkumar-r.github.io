@@ -37,7 +37,7 @@ if (existsSync(out)) {
     .replace(/<script[\s\S]*?<\/script>/g, " ").replace(/<style[\s\S]*?<\/style>/g, " ").replace(/<[^>]+>/g, " ")
     .replace(/&amp;/g, "&").replace(/&#x27;/g, "'").replace(/&quot;/g, '"');
   const repoNames = JSON.parse(readFileSync("src/data/github.json", "utf8")).repos.map((r) => r.name);
-  const idents = /^[\w.-]+(?:\/[\w.#-]+)+$|^(?:scikit-learn|Sahilkumar-r|rag-demo|First-Production-RAG|Simple-RAG|Langgraph-react-agent|mcp-multi-server|Langchain-Basics|Deep-Learning-Basics|fastapi-basics|Machine-Learning-From-Scratch|fastapi-streamlit-vit|imdb-lstm-seq2seq-nextword|gpt2-distillation-mistral7b|Sahil_Kumar_Resume\.pdf)$/;
+  const idents = /^[\w.-]+(?:\/[\w.#-]+)+$|^(?:GPT-2|scikit-learn|Sahilkumar-r|rag-demo|First-Production-RAG|Simple-RAG|Langgraph-react-agent|mcp-multi-server|Langchain-Basics|Deep-Learning-Basics|fastapi-basics|Machine-Learning-From-Scratch|fastapi-streamlit-vit|imdb-lstm-seq2seq-nextword|gpt2-distillation-mistral7b|Sahil_Kumar_Resume\.pdf)$/;
   const found = new Set();
   for (const tok of html.split(/\s+/)) {
     const t = tok.replace(/^[("'`[]+|[)"'`.,;:!?\]]+$/g, "");

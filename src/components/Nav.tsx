@@ -7,11 +7,11 @@ import { Moon, Sun } from "@phosphor-icons/react";
 import { profile } from "@/data/profile";
 
 const links = [
-  { id: "projects", label: "Work" },
-  { id: "github", label: "GitHub" },
+  { id: "education", label: "Education" },
   { id: "experience", label: "Experience" },
+  { id: "projects", label: "Projects" },
+  { id: "github", label: "GitHub" },
   { id: "skills", label: "Skills" },
-  { id: "faq", label: "FAQ" },
   { id: "contact", label: "Contact" },
 ];
 const base = [0.22, 1, 0.36, 1] as const;

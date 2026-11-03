@@ -32,27 +32,16 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = { themeColor: "#000000", colorScheme: "dark light" };
 
-const jsonLd = [
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    name: profile.name,
-    jobTitle: profile.title,
-    url: profile.siteUrl,
-    email: `mailto:${profile.email}`,
-    sameAs: [profile.linkedin, profile.github],
-    alumniOf: "FAST National University of Computer and Emerging Sciences",
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: profile.faq.map((f) => ({
-      "@type": "Question",
-      name: f.q,
-      acceptedAnswer: { "@type": "Answer", text: f.a.replace(/\{\d+\}/g, "") },
-    })),
-  },
-];
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: profile.name,
+  jobTitle: profile.title,
+  url: profile.siteUrl,
+  email: `mailto:${profile.email}`,
+  sameAs: [profile.linkedin, profile.github],
+  alumniOf: "FAST National University of Computer and Emerging Sciences",
+};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

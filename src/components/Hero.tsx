@@ -1,8 +1,8 @@
 "use client";
 import { motion } from "framer-motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
-import { DownloadSimple, EnvelopeSimple, GithubLogo, LinkedinLogo } from "@phosphor-icons/react";
-import Rich from "./Cite";
+import { DownloadSimple, GithubLogo, LinkedinLogo } from "@phosphor-icons/react";
+import EmailMe from "./EmailMe";
 import { profile } from "@/data/profile";
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
@@ -30,12 +30,10 @@ export default function Hero() {
             {profile.subheading}
           </motion.p>
           <motion.p {...item(2)} className="body-3 mt-4 max-w-[680px]">
-            <Rich text={profile.proof} />
+            {profile.proof}
           </motion.p>
           <motion.div {...item(3)} className="mt-8 flex flex-wrap items-center gap-4">
-            <a href={`mailto:${profile.email}`} className="btn btn-primary">
-              <EnvelopeSimple size={20} weight="bold" aria-hidden /> Email me
-            </a>
+            <EmailMe />
             <a href={`${base}/${profile.resume}`} download className="link button-sm inline-flex items-center gap-2">
               <DownloadSimple size={16} aria-hidden /> Download resume
             </a>

@@ -12,7 +12,10 @@ export default function Privacy() {
         It stores one preference in your browser (localStorage): your light or dark theme choice. It stays on your device and you can clear it from your browser settings.
       </p>
       <p>
-        The contact form does not send anything to a server. It opens your email app with a message filled in, and nothing is sent until you press send there. If you email me, I use your message only to reply to you.
+        The contact form does not send anything to a server. After you write a message, you choose Gmail, Outlook or your email app, and the message opens there. Nothing is sent until you press send in your own email. If you email me, I use your message only to reply to you.
+      </p>
+      <p>
+        The GitHub activity section loads public information (repositories and commits) directly from GitHub&apos;s public API in your browser, about once a minute while the page is open. GitHub receives your IP address and browser details when that happens, under its own privacy statement.
       </p>
       <p>
         The site is hosted on GitHub Pages. GitHub may log technical request data such as IP addresses under its own privacy statement.

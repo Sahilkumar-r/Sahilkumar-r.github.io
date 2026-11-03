@@ -1,14 +1,13 @@
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
+import Education from "@/components/Education";
+import Experience from "@/components/Experience";
+import Projects from "@/components/Projects";
 import Benefits from "@/components/Benefits";
 import TaglineReveal from "@/components/TaglineReveal";
-import Projects from "@/components/Projects";
 import GithubActivity from "@/components/GithubActivity";
-import Experience from "@/components/Experience";
 import Skills from "@/components/Skills";
-import Faq from "@/components/Faq";
 import Contact from "@/components/Contact";
-import Sources from "@/components/Sources";
 import Footer from "@/components/Footer";
 import { profile } from "@/data/profile";
 
@@ -24,15 +23,14 @@ export default function Home() {
       <Nav />
       <main id="main">
         <Hero />
+        <Education />
+        <Experience />
+        <Projects />
         <Benefits />
         <TaglineReveal text={profile.tagline} />
-        <Projects />
         <GithubActivity />
-        <Experience />
         <Skills />
-        <Faq />
         <Contact />
-        <Sources />
       </main>
       <Footer />
     </>
