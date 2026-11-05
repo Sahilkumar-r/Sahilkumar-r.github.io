@@ -91,6 +91,11 @@ input, textarea { caret-color: rgb(var(--link)); }
   .icon-btn:hover { @apply bg-surface; }
   .icon-btn:active { transform: scale(0.98); }
 
+  /* Chart bars: flat fills from the existing tokens (case study charts). */
+  .bar-primary { background: rgb(var(--link)); }
+  .bar-muted { background: rgb(var(--line-strong)); }
+  .bar-warn { background: #d97706; }
+
   .surface { @apply rounded-2xl border border-line bg-surface; }
   .surface-hover { @apply motion-base; }
   .surface-hover:hover { @apply border-line-strong bg-raised; }

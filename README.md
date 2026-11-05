@@ -8,6 +8,9 @@ Edit `src/data/profile.ts` (all text, links, projects, skills). Replace `public/
 ## Refresh the GitHub activity section
 The section reads a snapshot in `src/data/github.json` (no API calls at runtime). To update it, log in with the GitHub CLI and run `npm run fetch:github`, then commit and push.
 
+## Refresh the ragx case study numbers
+The case study at `/projects/ragx/` and the featured section read `src/data/ragx.ts`, which is generated from the result files in the ragx repository, so no number is typed by hand. After new evals land there, run `python scripts/make-ragx-data.py <path to the advanced-rag repo>`, rebuild, and run `node scripts/check-style.mjs`. Screenshots live in `public/images/ragx/`.
+
 ## Develop
 ```
 npm install

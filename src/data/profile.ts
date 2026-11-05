@@ -30,9 +30,21 @@ export type Project = {
   stack: string[];
   repo?: string;
   demo?: string;
+  /** Path of an on site case study page, for example "/projects/ragx/". */
+  caseStudy?: string;
 };
 
+import { ragx } from "./ragx";
+
 const gh = "https://github.com/Sahilkumar-r";
+
+// Numbers for the ragx project come from the generated result data, never typed here.
+const rpc = (n: number) => `${Math.round(n * 100)}%`;
+const rf2 = (n: number) => n.toFixed(2);
+const hy = ragx.retrieval.find((r) => r.mode === "hybrid")!;
+const kw = ragx.retrieval.find((r) => r.mode === "bm25")!;
+const dn = ragx.retrieval.find((r) => r.mode === "dense")!;
+const gp = ragx.generation.plain_rag;
 
 export const statusLabel: Record<Status, string> = {
   done: "Done",
@@ -66,7 +78,7 @@ export const profile = {
   subheading:
     "Recent Data Science graduate (BS, FAST NUCES, June 2026) focused on retrieval augmented generation. Open to AI Engineer and Forward Deployed Engineer roles.",
   proof:
-    "3.84 CGPA and a three time Gold Medalist. My RAG demo found a correct page in its top five results for all 30 test questions.",
+    `3.84 CGPA and a three time Gold Medalist. My live RAG assistant cites its sources and found a correct page in its top five results for ${rpc(hy.held_out["hit@5"])} of ${ragx.n.held_out} held out questions.`,
   email: "sahilrathi.k@gmail.com",
   phone: "+92 333 2530664",
   phoneHref: "+923332530664",
@@ -85,7 +97,7 @@ export const profile = {
     },
     {
       title: "Measured before it ships",
-      text: "My RAG demo compares four retrieval modes on 30 hand written questions. A reranker that made results worse was left out. The question set is small and the demo is not deployed yet.",
+      text: `ragx compares ${ragx.retrieval.length} retrieval modes on a fixed set of ${ragx.n.dev + ragx.n.held_out} questions, with ${ragx.n.held_out} held out. A reranker that made results worse was left out, and so was a self checking variant that used about four times the model calls for no gain. The demo is live. Most labels were written by an AI assistant and are not reviewed by a human.`,
     },
     {
       title: "Explains clearly",
@@ -145,6 +157,26 @@ export const profile = {
   ],
   projects: [
     // ---------- Done ----------
+    {
+      slug: "ragx",
+      title: "ragx: a docs assistant with citations, guardrails, evals and live monitoring",
+      track: "RAG",
+      status: "done",
+      problem:
+        "Documentation chatbots answer with confidence when the documents do not cover the question, and teams cannot tell whether a change made them better or worse. ragx is the larger successor to the FastAPI Docs Assistant below.",
+      built:
+        "A FastAPI service over the FastAPI and Pydantic docs: hybrid search, answers with citations that open the source passage, refusals for off topic questions, a router across free model providers with caching, guardrails for prompt injection and personal data, memory with consent, voice and screenshot input, role based access, and Prometheus and Grafana monitoring. It ships as a web app that installs like an app, in a container on a free server.",
+      results: [
+        `Hybrid search found a correct page in the top five for ${rpc(hy.held_out["hit@5"])} of ${ragx.n.held_out} held out questions, against ${rpc(kw.held_out["hit@5"])} for keyword search and ${rpc(dn.held_out["hit@5"])} for embeddings alone.`,
+        `Answers scored ${rf2(gp.faithfulness)} faithfulness and ${rf2(gp.citation_accuracy)} citation accuracy on ${gp.n} questions, judged by a model from a different family. A reranker and a self checking variant scored no better, so they are not in the product.`,
+        `Blocked ${rpc(ragx.safety.injection_block_rate.v2)} of ${ragx.safety.injection_n} attack prompts with no false refusals on ${ragx.safety.benign_n} benign look alikes. ${ragx.pii.text_leak_rate * ragx.pii.text_cases} of ${ragx.pii.text_cases} personal data cases leaked in an end to end test, and a control with the guards off leaked all ${ragx.pii.control_of}.`,
+        "Limits: most labels were written by an AI assistant and not reviewed by a human, free tiers are slow at the 95th percentile, and context recall is not measured.",
+      ],
+      stack: ["Python", "FastAPI", "BM25", "FAISS", "Groq", "Gemini", "Prometheus", "Grafana", "Docker"],
+      repo: `${gh}/advanced-rag`,
+      demo: "https://advanced-rag-ef76.onrender.com/",
+      caseStudy: "/projects/ragx/",
+    },
     {
       slug: "fastapi-docs-rag",
       title: "FastAPI Docs Assistant: RAG that cites sources and says when it does not know",
@@ -245,7 +277,7 @@ export const profile = {
         "Fifteen NumPy implementations: linear regression (ordinary least squares, gradient descent, ridge and lasso variants), polynomial regression, logistic regression, KNN, SVM, Gaussian naive Bayes, decision tree, random forest and PCA.",
       results: [
         "Benchmarked against scikit-learn over 5 random 80/20 splits. Accuracy is within about 1 point on most runs: logistic regression 97.5% vs 98.1% and KNN 97.4% vs 97.4% on breast cancer, Gaussian naive Bayes 97.8% vs 97.8% on wine.",
-        "Multiple linear regression matches scikit-learn exactly on diabetes (R² 0.418, RMSE 55.9) and PCA matches its explained variance to 7e-17.",
+        "Multiple linear regression matches scikit-learn exactly on diabetes (R² 0.418, RMSE 55.9) and PCA matches its explained variance to within floating point rounding error.",
         "Trees trail on the small wine set: decision tree 91.7% vs 93.9%, random forest 95.0% vs 97.2%. They are also far slower, 8.6 s against 0.014 s for a 10 tree forest on breast cancer.",
       ],
       stack: ["Python", "NumPy"],

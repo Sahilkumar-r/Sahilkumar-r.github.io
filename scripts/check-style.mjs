@@ -33,7 +33,8 @@ for (const f of src) {
 // 2. Hyphens in visible copy (built page). Repo names, URLs and model ids are identifiers, not copy.
 const out = "out/index.html";
 if (existsSync(out)) {
-  const html = readFileSync(out, "utf8")
+  // every built page, not only the home page (the case study pages carry copy too)
+  const html = walk("out").filter((f) => f.endsWith(".html")).map((f) => readFileSync(f, "utf8")).join(" ")
     .replace(/<script[\s\S]*?<\/script>/g, " ").replace(/<style[\s\S]*?<\/style>/g, " ").replace(/<[^>]+>/g, " ")
     .replace(/&amp;/g, "&").replace(/&#x27;/g, "'").replace(/&quot;/g, '"');
   const repoNames = JSON.parse(readFileSync("src/data/github.json", "utf8")).repos.map((r) => r.name);

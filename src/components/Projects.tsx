@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
-import { ArrowUpRight, Circle, GithubLogo } from "@phosphor-icons/react";
+import Link from "next/link";
+import { ArrowRight, ArrowUpRight, Circle, GithubLogo } from "@phosphor-icons/react";
 import Section from "./Section";
 import {
   profile,
@@ -84,8 +85,13 @@ function ProjectCard({ p }: { p: Project }) {
         ))}
       </ul>
 
-      {(p.repo || p.demo) && (
+      {(p.repo || p.demo || p.caseStudy) && (
         <div className="mt-auto flex flex-wrap gap-4 pt-6">
+          {p.caseStudy && (
+            <Link href={p.caseStudy} className="link body-5 inline-flex items-center gap-2">
+              <ArrowRight size={16} aria-hidden /> Read the case study
+            </Link>
+          )}
           {p.repo && (
             <a href={p.repo} target="_blank" rel="noopener noreferrer" className="link body-5 inline-flex items-center gap-2">
               <GithubLogo size={16} aria-hidden /> View code
