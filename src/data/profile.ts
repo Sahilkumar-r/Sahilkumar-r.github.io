@@ -198,6 +198,7 @@ export const profile = {
       ],
       stack: ["Python", "FastAPI", "Qdrant", "BM25", "RapidOCR", "pytest"],
       repo: `${gh}/policylens`,
+      caseStudy: "/projects/policylens/",
     },
     {
       slug: "fastapi-docs-rag",
