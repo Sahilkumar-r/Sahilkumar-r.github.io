@@ -56,6 +56,19 @@ export const policylens = {
     "hybridP95": 55.0,
     "rerankP50": 10477.6
   },
+  "llm": {
+    "generator": "meta-llama/llama-3.1-8b-instruct",
+    "judge": "mistralai/mistral-small-3.2-24b-instruct",
+    "faithful": 98.4,
+    "judgeCorrect": 88.9,
+    "stringMatch": 98.4,
+    "agreement": 90.5,
+    "refusedWhenShould": 97.9,
+    "restrictedLeaks": 0,
+    "restrictedN": 30,
+    "costPer1000": 0.013,
+    "p50": 861.0
+  },
   "errors": {
     "total": 30,
     "n": 123

@@ -23,8 +23,9 @@ names = (
     "latency",
     "endtoend",
     "failures",
+    "llm",
 )
-ret, ref, sec, par, lat, e2e, fail = (load(n) for n in names)
+ret, ref, sec, par, lat, e2e, fail, llm = (load(n) for n in names)
 stage = sec["filter_stage_retrieval"]
 data = {
     "commit": ret["commit"],
@@ -73,6 +74,19 @@ data = {
         "hybridP50": lat["hybrid"]["cold_p50_ms"],
         "hybridP95": lat["hybrid"]["cold_p95_ms"],
         "rerankP50": lat["hybrid_rerank"]["cold_p50_ms"],
+    },
+    "llm": {
+        "generator": llm["generator"],
+        "judge": llm["judge"],
+        "faithful": llm["judge_faithful_of_answered"],
+        "judgeCorrect": llm["judge_correct_of_answered"],
+        "stringMatch": llm["string_match_of_answered"],
+        "agreement": llm["judge_vs_string_agreement"],
+        "refusedWhenShould": llm["refused_when_should"],
+        "restrictedLeaks": llm["restricted_value_leaked"],
+        "restrictedN": llm["restricted_n"],
+        "costPer1000": llm["cost_usd_per_1000_answers"],
+        "p50": llm["latency_ms_p50"],
     },
     "errors": {
         "total": sum(b["count"] for b in fail["buckets"].values()),
