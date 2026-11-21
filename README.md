@@ -11,6 +11,9 @@ The section reads a snapshot in `src/data/github.json` (no API calls at runtime)
 ## Refresh the ragx case study numbers
 The case study at `/projects/ragx/` and the featured section read `src/data/ragx.ts`, which is generated from the result files in the ragx repository, so no number is typed by hand. After new evals land there, run `python scripts/make-ragx-data.py <path to the advanced-rag repo>`, rebuild, and run `node scripts/check-style.mjs`. Screenshots live in `public/images/ragx/`.
 
+## Refresh the PolicyLens card numbers
+The PolicyLens card reads `src/data/policylens.ts`, generated from the result files in the PolicyLens repository. After new evals land there, run `python scripts/make-policylens-data.py <path to the policylens repo>`, rebuild, and run `node scripts/check-style.mjs`.
+
 ## Develop
 ```
 npm install

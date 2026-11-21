@@ -34,6 +34,7 @@ export type Project = {
   caseStudy?: string;
 };
 
+import { policylens as pl } from "./policylens";
 import { ragx } from "./ragx";
 
 const gh = "https://github.com/Sahilkumar-r";
@@ -176,6 +177,25 @@ export const profile = {
       repo: `${gh}/advanced-rag`,
       demo: "https://advanced-rag-ef76.onrender.com/",
       caseStudy: "/projects/ragx/",
+    },
+    {
+      slug: "policylens",
+      title: "PolicyLens: document search over scans, tables and Urdu, with access control",
+      track: "RAG",
+      status: "done",
+      problem:
+        "Company document assistants often work on clean text, but real policy libraries hold scans, tables, mixed Urdu and English, and files that only some staff may see. A wrong answer or a leaked finance document is worse than no answer.",
+      built:
+        "A FastAPI service that reads digital and scanned PDFs, Word, Excel, HTML and Urdu text, repairs OCR spacing, searches with BM25 and embeddings under a role filter applied inside the vector store, cites the page and section, and refuses when it cannot find the answer. It comes with 23 tests, CI and a generator that writes documents and questions with known answers.",
+      results: [
+        `Recall@5 on ${pl.retrieval.n} held out questions was ${pl.retrieval.hybrid_rerank.recall5}% with a reranker, ${pl.retrieval.bm25.recall5}% for keyword search, ${pl.retrieval.hybrid.recall5}% for hybrid search and ${pl.retrieval.dense.recall5}% for embeddings alone. The reranker takes about ${Math.round(pl.latency.rerankP50 / 1000)} seconds per query on a CPU, so it is off by default.`,
+        `With the shipped refusal threshold, ${pl.endToEnd.strict}% of answers were correct end to end. Table questions scored ${pl.endToEnd.tableStrict}% because ${pl.endToEnd.tableRefused}% were refused: one similarity cutoff cannot separate a near miss from an answer.`,
+        `With no access filter, ${pl.security.noFilterLeaks} of ${pl.security.restricted} restricted questions pulled in a restricted chunk. With the filter, ${pl.security.preFilterLeaks}, and ${pl.security.roleLeaks} leaks across ${pl.security.roleQueries} role and question pairs. A deliberately buggy cache leaked ${pl.security.buggyCacheLeaks} of ${pl.security.restricted}, which shows the test can fail.`,
+        `OCR on ${pl.parsing.pages} scanned pages had a word error rate of ${pl.parsing.clean}% on clean scans and ${pl.parsing.hard}% on hard ones, and text layer parsers recovered nothing.`,
+        `Limits: no LLM was available, so faithfulness scoring and LLM answer leakage are not run. The 19 labels on public regulator PDFs were written by an AI assistant and are not reviewed by a human. There is no hosted demo yet and the container image has not been built.`,
+      ],
+      stack: ["Python", "FastAPI", "Qdrant", "BM25", "RapidOCR", "pytest"],
+      repo: `${gh}/policylens`,
     },
     {
       slug: "fastapi-docs-rag",
