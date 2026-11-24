@@ -37,6 +37,7 @@ export type Project = {
 };
 
 import { policylens as pl } from "./policylens";
+import { agentdesk as ad } from "./agentdesk";
 import { ragx } from "./ragx";
 
 const gh = "https://github.com/Sahilkumar-r";
@@ -202,6 +203,27 @@ export const profile = {
       repo: `${gh}/policylens`,
       video: "/videos/policylens-demo.mp4",
       caseStudy: "/projects/policylens/",
+    },
+    {
+      slug: "agentdesk",
+      title: "AgentDesk: a support agent that changes real state, with its rules in code",
+      track: "LLM applications",
+      status: "done",
+      problem:
+        "An agent that can issue refunds has to survive a customer asking about someone else's order, text inside the data that tries to give it orders, and a model that is simply wrong. Most agent demos only read data and never face this.",
+      built:
+        "A FastAPI and LangGraph support agent that looks up orders, issues refunds, changes addresses, opens tickets and answers policy questions. A plain Python guardrail, outside the graph, checks ownership, the amount limit, order state, double refunds and a one time confirmation token tied to the exact arguments and sent only to the customer. Refunds above the limit wait for an admin. Every call is written to an audit table. It comes with tests, CI and an independent judge that decides what counts as an unsafe action.",
+      results: [
+        `With a fully compromised model proposing the attacks, ${ad.redteam.unsafeA} of ${ad.redteam.nA} attack cases caused an unsafe action, and ${ad.redteam.unsafeB} of ${ad.redteam.nB} did when the attack came as a user message. The judge does not import the guardrail code.`,
+        `The test can fail. Switching off one rule at a time caused between ${Math.min(...Object.values(ad.mutants))} and ${Math.max(...Object.values(ad.mutants))} unsafe cases out of ${ad.redteam.nA}, and ${ad.redteam.guardrailOffUnsafe} out of ${ad.redteam.nA} with every rule off.`,
+        `The agent I measured is a hand written rule baseline, not an LLM. On ${ad.main.n} conversations it succeeded ${ad.main.success}% of the time: ${ad.main.seenOk} of ${ad.main.seenN} on phrasings the rules were written against and ${ad.main.heldOk} of ${ad.main.heldN} on new ones. ${ad.main.failuresHeldOut} of the ${ad.main.failures} failures were new phrasings, and none was unsafe.`,
+        `Dropping the confirmation step saves ${(ad.confirmation.turnsOn - ad.confirmation.turnsOff).toFixed(2)} turns per resolved conversation (${ad.confirmation.turnsOn.toFixed(2)} to ${ad.confirmation.turnsOff.toFixed(2)}) with no change in task success. Every tool call had an audit row (${ad.main.audit}%).`,
+        `Limits: LLM task success, a comparison of two models and cost per conversation are not run because there is no API key. The ${ad.redteam.nA} attacks were written by the same person who wrote the guardrail, and the Docker image is not built yet.`,
+      ],
+      stack: ["Python", "LangGraph", "FastAPI", "SQLite", "Pydantic", "pytest"],
+      repo: `${gh}/agentdesk`,
+      video: "/videos/agentdesk-demo.mp4",
+      caseStudy: "/projects/agentdesk/",
     },
     {
       slug: "fastapi-docs-rag",
