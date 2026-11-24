@@ -30,6 +30,8 @@ export type Project = {
   stack: string[];
   repo?: string;
   demo?: string;
+  /** Path of a demo video on this site, for example "/videos/x.mp4". */
+  video?: string;
   /** Path of an on site case study page, for example "/projects/ragx/". */
   caseStudy?: string;
 };
@@ -194,10 +196,11 @@ export const profile = {
         `OCR on ${pl.parsing.pages} scanned pages had a word error rate of ${pl.parsing.clean}% on clean scans and ${pl.parsing.hard}% on hard ones, and text layer parsers recovered nothing.`,
         `With Llama 3.1 8B answering and Mistral Small 3.2 judging, ${pl.llm.faithful}% of answered questions were faithful to the retrieved text and ${pl.llm.refusedWhenShould}% of unanswerable or restricted questions were refused. ${pl.llm.restrictedLeaks} restricted values appeared in ${pl.llm.restrictedN} restricted questions. It cost about $${pl.llm.costPer1000} per 1,000 answers.`,
         `The judge scored ${pl.llm.judgeCorrect}% correct against ${pl.llm.stringMatch}% by string match. In the four disagreements I read, the judge was wrong, so I do not fully trust it.`,
-        `Limits: the 19 labels on public regulator PDFs were written by an AI assistant and are not reviewed by a human, no human has checked the judge, and there is no hosted demo yet. The container image builds and serves requests, but its first request is slow because it reads the scanned files.`,
+        `Limits: the 19 labels on public regulator PDFs were written by an AI assistant and are not reviewed by a human, no human has checked the judge, and there is no hosted demo, only a silent captioned video, because the app needs about 1 GiB of memory and free hosts give less. The container image builds and serves requests, and its first request took about 53 seconds in a container test because it loads the models.`,
       ],
       stack: ["Python", "FastAPI", "Qdrant", "BM25", "RapidOCR", "pytest"],
       repo: `${gh}/policylens`,
+      video: "/videos/policylens-demo.mp4",
       caseStudy: "/projects/policylens/",
     },
     {

@@ -20,9 +20,9 @@ With 14 small documents every method looked the same. I added the 8 real regulat
 
 The assistant refuses when its best match scores below a threshold. I tuned the threshold on the validation set. On the test set it reached 74.4 percent precision and 68.1 percent recall, and the shipped system answered 81.6 percent of answerable questions correctly end to end in offline mode. Table questions did worst: 37.5 percent were refused. Correct short facts scored 0.48 to 0.53 similarity, while unrelated regulator text scored 0.59 to 0.63, so no single number separates them.
 
-I hit this in my own demo. A finance officer asked for the CFO's approval limit, which is in the finance table, and got a refusal. I kept that screenshot in the project.
+I hit this in my own demo. An employee asked for the daily meal allowance for Grade 4, which is in a table in the travel policy and which the employee may read, and got a refusal. I kept that screenshot in the project. My first failure screenshot used the CFO approval limit, but that question answered correctly when I ran it again later, so I replaced it with one that fails every time I tried it.
 
-![A finance officer asks a question that is in a table and is refused](/images/policylens/3-failure-finance-table-question-refused.webp)
+![An employee asks a question that is in a table and is refused](/images/policylens/3-failure-table-question-refused.webp)
 
 ## The part that worked: access control before retrieval
 

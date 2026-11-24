@@ -85,7 +85,7 @@ function ProjectCard({ p }: { p: Project }) {
         ))}
       </ul>
 
-      {(p.repo || p.demo || p.caseStudy) && (
+      {(p.repo || p.demo || p.video || p.caseStudy) && (
         <div className="mt-auto flex flex-wrap gap-4 pt-6">
           {p.caseStudy && (
             <Link href={p.caseStudy} className="link body-5 inline-flex items-center gap-2">
@@ -95,6 +95,11 @@ function ProjectCard({ p }: { p: Project }) {
           {p.repo && (
             <a href={p.repo} target="_blank" rel="noopener noreferrer" className="link body-5 inline-flex items-center gap-2">
               <GithubLogo size={16} aria-hidden /> View code
+            </a>
+          )}
+          {p.video && (
+            <a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}${p.video}`} target="_blank" rel="noopener noreferrer" className="link body-5 inline-flex items-center gap-2">
+              <ArrowUpRight size={16} aria-hidden /> Watch the demo video
             </a>
           )}
           {p.demo && (

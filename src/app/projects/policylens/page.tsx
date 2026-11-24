@@ -24,6 +24,10 @@ export default function PolicyLensCaseStudy() {
         </Link>
         <h1 className="heading-2 mt-8">{post.title}</h1>
         <p className="caption-2 mt-2 text-muted">Case study for PolicyLens. Every number comes from result files in the repository.</p>
+        <figure className="mt-8">
+          <video controls preload="metadata" className="h-auto w-full rounded-2xl border border-line" src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/videos/policylens-demo.mp4`} aria-label="PolicyLens demo, 70 seconds, silent with captions" />
+          <figcaption className="caption-2 mt-2 text-muted">Silent walkthrough with captions, recorded from the running app in offline mode. Seventy seconds.</figcaption>
+        </figure>
         <div className="body-3 mt-8 space-y-6 text-muted">{post.body}</div>
         <a href={`${profile.github}/policylens`} target="_blank" rel="noopener noreferrer" className="link body-5 mt-12 inline-flex items-center gap-2">
           <GithubLogo size={16} aria-hidden /> View the code
